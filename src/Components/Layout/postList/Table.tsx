@@ -13,7 +13,7 @@ import {
   useReactTable,
   getSortedRowModel,
 } from "@tanstack/react-table";
-import { SlMagnifier, SlPencil, SlPlus, SlTrash } from "react-icons/sl";
+import { SlArrowDown, SlArrowUp, SlMagnifier, SlPencil, SlPlus, SlTrash } from "react-icons/sl";
 import EditPost from "./EditPost";
 import DeletePost from "./DeletePost";
 import { formatDate } from "@/utils/formatDate";
@@ -38,30 +38,30 @@ const PostsTable = ({ data, ...props }: PostsTableProps) => {
 
   const columns = React.useMemo<ColumnDef<Post>[]>(
     () => [
-      {
-        id: "select",
-        header: ({ table }) => (
-          <IndeterminateCheckbox
-            {...{
-              checked: table.getIsAllRowsSelected(),
-              indeterminate: table.getIsSomeRowsSelected(),
-              onChange: table.getToggleAllRowsSelectedHandler(),
-            }}
-          />
-        ),
-        cell: ({ row }) => (
-          <div className="px-1">
-            <IndeterminateCheckbox
-              {...{
-                checked: row.getIsSelected(),
-                disabled: !row.getCanSelect(),
-                indeterminate: row.getIsSomeSelected(),
-                onChange: row.getToggleSelectedHandler(),
-              }}
-            />
-          </div>
-        ),
-      },
+      // {
+      //   id: "select",
+      //   header: ({ table }) => (
+      //     <IndeterminateCheckbox
+      //       {...{
+      //         checked: table.getIsAllRowsSelected(),
+      //         indeterminate: table.getIsSomeRowsSelected(),
+      //         onChange: table.getToggleAllRowsSelectedHandler(),
+      //       }}
+      //     />
+      //   ),
+      //   cell: ({ row }) => (
+      //     <div className="px-1">
+      //       <IndeterminateCheckbox
+      //         {...{
+      //           checked: row.getIsSelected(),
+      //           disabled: !row.getCanSelect(),
+      //           indeterminate: row.getIsSomeSelected(),
+      //           onChange: row.getToggleSelectedHandler(),
+      //         }}
+      //       />
+      //     </div>
+      //   ),
+      // },
       {
         header: "Title",
         footer: (props) => props.column.id,
@@ -70,45 +70,29 @@ const PostsTable = ({ data, ...props }: PostsTableProps) => {
       {
         header: "Content",
         accessorKey: "content",
-        // footer: props => props.column.id,
       },
       {
         header: "Date",
         accessorKey: "date",
         cell: ({ row }) => useTimeAgo(row.original.date),
-        // footer: props => props.column.id,
-        // <>{formatDate(row.original.date)}</>
       },
       {
         header: "Author",
         accessorKey: "author",
-        // footer: props => props.column.id,
       },
       {
         header: "Action",
 
         cell: ({ row }) => (
           <>
-            <div
-              className={`${
-                decodeToken && decodeToken.role !== "admin"
-                  ? " cursor-not-allowed "
-                  : ""
-              }`}
-            >
+            <div className={`${decodeToken && decodeToken.role !== "admin" ? " cursor-not-allowed " : ""}`}>
               <button
                 onClick={() => {
                   setEdit(row.original);
-                  (
-                    document.getElementById(
-                      "my_modal_7 edit",
-                    ) as HTMLDialogElement
-                  ).showModal();
+                  (document.getElementById("my_modal_7 edit") as HTMLDialogElement).showModal();
                 }}
                 className={`hover:bg-gray-100 text-2xl focus:ring-4 focus:outline-none focus:ring-gray-200  transition-all font-medium ${
-                  decodeToken && decodeToken.role !== "admin"
-                    ? "pointer-events-none "
-                    : ""
+                  decodeToken && decodeToken.role !== "admin" ? "pointer-events-none " : ""
                 }`}
               >
                 <SlPencil />
@@ -118,16 +102,10 @@ const PostsTable = ({ data, ...props }: PostsTableProps) => {
                 onClick={() => {
                   setDeleteId(row.original.id);
 
-                  (
-                    document.getElementById(
-                      "my_modal_7 delete",
-                    ) as HTMLDialogElement
-                  ).showModal();
+                  (document.getElementById("my_modal_7 delete") as HTMLDialogElement).showModal();
                 }}
                 className={` hover:bg-gray-100 text-2xl focus:ring-4 text-red-600 focus:outline-none transition-all focus:ring-gray-200 font-medium ms-3  ${
-                  decodeToken && decodeToken.role !== "admin"
-                    ? "pointer-events-none "
-                    : ""
+                  decodeToken && decodeToken.role !== "admin" ? "pointer-events-none " : ""
                 }`}
               >
                 <SlTrash />
@@ -138,7 +116,7 @@ const PostsTable = ({ data, ...props }: PostsTableProps) => {
         footer: (props) => props.column.id,
       },
     ],
-    [],
+    []
   );
   useEffect(() => {
     console.log(deleteId);
@@ -158,9 +136,8 @@ const PostsTable = ({ data, ...props }: PostsTableProps) => {
       sorting: sorting,
       globalFilter: globalFilter,
     },
-    enableRowSelection: true, //enable row selection for all rows
-    // enableRowSelection: row => row.original.age > 18, // or enable row selection conditionally per row
-    onRowSelectionChange: setRowSelection,
+    enableRowSelection: true,
+    // onRowSelectionChange: setRowSelection,
     getSortedRowModel: getSortedRowModel(),
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -186,9 +163,7 @@ const PostsTable = ({ data, ...props }: PostsTableProps) => {
         </div>
         <SubmitButton
           onClick={() => {
-            (
-              document.getElementById("my_modal_7 add") as HTMLDialogElement
-            ).showModal();
+            (document.getElementById("my_modal_7 add") as HTMLDialogElement).showModal();
           }}
         >
           <SlPlus className="mr-4" /> add new post
@@ -197,7 +172,7 @@ const PostsTable = ({ data, ...props }: PostsTableProps) => {
       </div>
       <div className="h-2" />
       <table className="w-full text-[1.4rem] text-left text-gray-500 ">
-        <thead className="text-gray-700 uppercase bg-gray-50">
+        <thead className="text-black uppercase bg-gray-50">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
@@ -205,25 +180,20 @@ const PostsTable = ({ data, ...props }: PostsTableProps) => {
                   <th
                     onClick={header.column.getToggleSortingHandler()}
                     scope="col"
-                    className="p-4 "
+                    className="p-4  "
                     key={header.id}
                     colSpan={header.colSpan}
                   >
                     {header.isPlaceholder ? null : (
                       <>
-                        {flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
+                        {flexRender(header.column.columnDef.header, header.getContext())}
 
-                        {((header.column.getIsSorted() as SortDirection) ??
-                          null) &&
-                        header.column.getIsSorted() === "asc" ? (
-                          <span className="mx-1 text-red-500">⇧</span>
+                        {((header.column.getIsSorted() as SortDirection) ?? null) && header.column.getIsSorted() === "asc" ? (
+                          <span className="mx-1 text-black">⇧</span>
                         ) : header.column.getIsSorted() === "desc" ? (
-                          <span className="mx-1 text-red-500">⇩</span>
+                          <span className="mx-1 text-black">⇩</span>
                         ) : (
-                          ""
+                          <div className="inline-flex items-center ml-2">⇧⇩</div>
                         )}
                       </>
                     )}
@@ -236,14 +206,11 @@ const PostsTable = ({ data, ...props }: PostsTableProps) => {
         <tbody>
           {table.getRowModel().rows.map((row) => {
             return (
-              <tr className="bg-white border-b   hover:bg-gray-50" key={row.id}>
+              <tr className="bg-white border-b text-black hover:bg-gray-50" key={row.id}>
                 {row.getVisibleCells().map((cell) => {
                   return (
                     <td className="px-6 py-4" key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   );
                 })}
@@ -254,25 +221,13 @@ const PostsTable = ({ data, ...props }: PostsTableProps) => {
       </table>
       <div className="h-2" />
       <div className="flex items-center gap-2">
-        <button
-          className="border rounded p-1"
-          onClick={() => table.setPageIndex(0)}
-          disabled={!table.getCanPreviousPage()}
-        >
+        <button className="border rounded p-1" onClick={() => table.setPageIndex(0)} disabled={!table.getCanPreviousPage()}>
           {"<<"}
         </button>
-        <button
-          className="border rounded p-1"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
+        <button className="border rounded p-1" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
           {"<"}
         </button>
-        <button
-          className="border rounded p-1"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
+        <button className="border rounded p-1" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
           {">"}
         </button>
         <button
@@ -285,8 +240,7 @@ const PostsTable = ({ data, ...props }: PostsTableProps) => {
         <span className="flex items-center gap-1">
           <div>Page</div>
           <strong>
-            {table.getState().pagination.pageIndex + 1} of{" "}
-            {table.getPageCount()}
+            {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
           </strong>
         </span>
         <span className="flex items-center gap-1">
@@ -320,11 +274,7 @@ const PostsTable = ({ data, ...props }: PostsTableProps) => {
 };
 
 export default PostsTable;
-function IndeterminateCheckbox({
-  indeterminate,
-  className = "",
-  ...rest
-}: { indeterminate?: boolean } & HTMLProps<HTMLInputElement>) {
+function IndeterminateCheckbox({ indeterminate, className = "", ...rest }: { indeterminate?: boolean } & HTMLProps<HTMLInputElement>) {
   const ref = React.useRef<HTMLInputElement>(null!);
 
   React.useEffect(() => {
@@ -333,12 +283,5 @@ function IndeterminateCheckbox({
     }
   }, [ref, indeterminate]);
 
-  return (
-    <input
-      type="checkbox"
-      ref={ref}
-      className={className + " cursor-pointer"}
-      {...rest}
-    />
-  );
+  return <input type="checkbox" ref={ref} className={className + " cursor-pointer"} {...rest} />;
 }

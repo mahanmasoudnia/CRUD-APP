@@ -14,7 +14,7 @@ const AddPost = () => {
   const dispatch = useDispatch();
   const { title, content, userId } = useSelector(
     (state: RootState) => state.AddNewPostSlice,
-  ); // Make sure to replace 'addNewPost' with the correct slice name
+  ); 
 
   const {
     register,
@@ -70,8 +70,7 @@ const AddPost = () => {
                 type="text"
                 placeholder="Title"
                 className="input w-full input-bordered text-[1.6rem]"
-                // value={title || ""}
-                // onChange={(e) => dispatch(updateField({ field: 'title', value: e.target.value }))}
+
                 {...register("title", { required: "Title is required" })}
               />
               {errors.title && (
@@ -86,7 +85,6 @@ const AddPost = () => {
               </label>
               <input
                 type="text"
-                // value={content || ""}
                 placeholder="Content"
                 className="input w-full input-bordered text-[1.6rem]"
                 {...register("content", { required: "Content is required" })}
@@ -102,7 +100,6 @@ const AddPost = () => {
                 <span className="">Select Your Author</span>
               </label>
               <select
-                // value={author || ""}
                 className=" select select-bordered min-w-full max-w-xs text-[1.6rem]"
                 {...register("userId", { required: "Author is required" })}
               >

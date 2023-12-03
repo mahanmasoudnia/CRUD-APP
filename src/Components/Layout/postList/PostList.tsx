@@ -1,5 +1,3 @@
-// ... (imports and styles)
-
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postDataAsync } from "@/Redux/postData/postDataSlice";
@@ -8,7 +6,6 @@ import { RootState } from "@/store";
 import Card from "../../Common/Card/Card";
 import { formatDate } from "@/utils/formatDate";
 import http from "@/Services/httpService";
-// import { getAuthor } from "@/Services/getAuthor";
 import { SlLogout, SlPencil, SlPlus, SlTrash } from "react-icons/sl";
 import Modal from "../../Common/Modal/Modal";
 import AddPost from "./AddPost";

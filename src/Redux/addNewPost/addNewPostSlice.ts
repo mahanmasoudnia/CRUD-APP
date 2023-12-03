@@ -1,4 +1,3 @@
-// store.ts
 import {
   createSlice,
   createAsyncThunk,
@@ -61,6 +60,9 @@ export const editNewPostAsync = createAsyncThunk(
     try {
       const response = await http.patch(`${API_BASE_URL}/posts`, credentials);
       if (response.status === 200) {
+        (
+          document.getElementById("my_modal_7 edit") as HTMLDialogElement
+        ).close();
         toast.success("Post got Send", {
           position: "top-right",
           autoClose: 2000,

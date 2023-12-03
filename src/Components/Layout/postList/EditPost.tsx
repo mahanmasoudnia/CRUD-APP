@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { RootState } from "@/store";
 import { editNewPostAsync } from "@/Redux/addNewPost/addNewPostSlice";
 import { AuthorsListAsync } from "@/Redux/authorsList/authorsList";
+import SubmitButton from "@/Components/Common/Button/Button";
 type EditPostProps = {
   post?: {
     id?: number;
@@ -131,12 +132,9 @@ const EditPost = ({ post }: EditPostProps) => {
                 </span>
               )}
             </div>
-            <button
-              type="submit"
-              className="btn text-white bg-orange py-[2rem]  mt-[3rem] content-center  text-center rounded-full text-[1.4rem] uppercase"
-            >
-              Send Your Post
-            </button>
+            <SubmitButton type="submit" className="   mt-[3rem] rounded-full ">
+              Edit Your Post
+            </SubmitButton>
           </form>
         </div>
       </Modal>
