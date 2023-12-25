@@ -106,9 +106,7 @@ const Login: React.FC = () => {
             </button>
           </form>
         </div>
-        <div className="w-1/2 flex justify-center">
-          <img className="h-fit" src={shatelLogo} alt="Shatel Logo" />
-        </div>
+    
       </div>
     </div>
   );
